@@ -1,0 +1,33 @@
+<h1>Listing Dogs</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, VetspireWeb.VetspireWeb.DogsLive.FormComponent,
+    id: @dogs.id || :new,
+    title: @page_title,
+    action: @live_action,
+    dogs: @dogs,
+    return_to: Routes.vetspire_web_dogs_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="dogs">
+    <%= for dogs <- @dogs_collection do %>
+      <tr id="dogs-<%= dogs.id %>">
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.vetspire_web_dogs_show_path(@socket, :show, dogs) %></span>
+          <span><%= live_patch "Edit", to: Routes.vetspire_web_dogs_index_path(@socket, :edit, dogs) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: dogs.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Dogs", to: Routes.vetspire_web_dogs_index_path(@socket, :new) %></span>

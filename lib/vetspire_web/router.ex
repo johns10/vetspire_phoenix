@@ -17,6 +17,9 @@ defmodule VetspireWeb.Router do
   scope "/", VetspireWeb do
     pipe_through :browser
 
+    live "/dogs", DogsLive.Index, :index
+    live "/dogs/:name/show", DogsLive.Show, :show
+
     live "/", PageLive, :index
   end
 
